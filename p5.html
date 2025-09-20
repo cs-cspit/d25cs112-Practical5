@@ -16,7 +16,6 @@
 
   <h1>&#127891; Student Portal</h1>
 
-  <!-- Page containers -->
   <div id="page1" class="page">
     <h2>&#128187; Welcome</h2>
     <p>This is a simple Student Portal demo with multiple pages in one file.</p>
@@ -42,14 +41,12 @@
     <p>You have reached the end of the Student Portal demo.</p>
   </div>
 
-  <!-- Navigation -->
   <div class="pagination">
     <button id="prevBtn">Prev</button>
     <button id="nextBtn">Next</button>
   </div>
 
   <script>
-    // ===== DATA =====
     const eventsJSON = `
       [
         {"title":"Sports Meet", "date":"2025-10-10"},
@@ -71,7 +68,6 @@
     const events = JSON.parse(eventsJSON);
     const students = JSON.parse(studentsJSON);
 
-    // ===== PAGE LOGIC =====
     let currentPage = 1;
     const totalPages = 5;
 
@@ -86,14 +82,11 @@
     document.getElementById("prevBtn").onclick = ()=>{ currentPage--; showPage(currentPage); };
     document.getElementById("nextBtn").onclick = ()=>{ currentPage++; showPage(currentPage); };
 
-    // ===== LOAD DATA =====
-    // Events
     const eventsDiv = document.getElementById("events");
     events.forEach(e => {
       eventsDiv.innerHTML += `<div class="box">&#128197; <b>${e.title}</b> - ${e.date}</div>`;
     });
 
-    // Student profiles (split into 2 pages)
     const profiles1 = document.getElementById("profiles1");
     const profiles2 = document.getElementById("profiles2");
 
@@ -104,9 +97,9 @@
       profiles2.innerHTML += `<div class="box">&#128100; <b>${s.name}</b> - ${s.course}</div>`;
     });
 
-    // Start with page 1
     showPage(currentPage);
   </script>
 
 </body>
 </html>
+
