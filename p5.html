@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Portal - Multi Page</title>
+  <style>
+    body { font-family: Arial; background:#fff5f5; padding:20px; }
+    h1 { color:#b71c1c; }
+    .page { display:none; }
+    .box { background:#ffcdd2; padding:10px; margin:8px 0; border-radius:5px; }
+    .pagination { margin-top:15px; }
+    button { padding:5px 12px; margin:2px; }
+  </style>
+</head>
+<body>
+
+  <h1>&#127891; Student Portal</h1>
+
+  <!-- Page containers -->
+  <div id="page1" class="page">
+    <h2>&#128187; Welcome</h2>
+    <p>This is a simple Student Portal demo with multiple pages in one file.</p>
+  </div>
+
+  <div id="page2" class="page">
+    <h2>&#128197; Events</h2>
+    <div id="events"></div>
+  </div>
+
+  <div id="page3" class="page">
+    <h2>&#128100; Student Profiles (1)</h2>
+    <div id="profiles1"></div>
+  </div>
+
+  <div id="page4" class="page">
+    <h2>&#128100; Student Profiles (2)</h2>
+    <div id="profiles2"></div>
+  </div>
+
+  <div id="page5" class="page">
+    <h2>&#128218; Thank You</h2>
+    <p>You have reached the end of the Student Portal demo.</p>
+  </div>
+
+  <!-- Navigation -->
+  <div class="pagination">
+    <button id="prevBtn">Prev</button>
+    <button id="nextBtn">Next</button>
+  </div>
+
+  <script>
+    // ===== DATA =====
+    const eventsJSON = `
+      [
+        {"title":"Sports Meet", "date":"2025-10-10"},
+        {"title":"Tech Expo", "date":"2025-11-05"},
+        {"title":"Cultural Fest", "date":"2025-12-01"}
+      ]
+    `;
+    const studentsJSON = `
+      [
+        {"name":"Aarav Sharma", "course":"B.Tech CSE"},
+        {"name":"Priya Singh", "course":"MBA"},
+        {"name":"Rohan Verma", "course":"B.Sc Physics"},
+        {"name":"Neha Patel", "course":"B.Com"},
+        {"name":"Karan Gupta", "course":"M.Tech AI"},
+        {"name":"Simran Kaur", "course":"BBA"}
+      ]
+    `;
+
+    const events = JSON.parse(eventsJSON);
+    const students = JSON.parse(studentsJSON);
+
+    // ===== PAGE LOGIC =====
+    let currentPage = 1;
+    const totalPages = 5;
+
+    function showPage(num) {
+      for (let i = 1; i <= totalPages; i++) {
+        document.getElementById("page"+i).style.display = (i===num) ? "block" : "none";
+      }
+      document.getElementById("prevBtn").disabled = (num===1);
+      document.getElementById("nextBtn").disabled = (num===totalPages);
+    }
+
+    document.getElementById("prevBtn").onclick = ()=>{ currentPage--; showPage(currentPage); };
+    document.getElementById("nextBtn").onclick = ()=>{ currentPage++; showPage(currentPage); };
+
+    // ===== LOAD DATA =====
+    // Events
+    const eventsDiv = document.getElementById("events");
+    events.forEach(e => {
+      eventsDiv.innerHTML += `<div class="box">&#128197; <b>${e.title}</b> - ${e.date}</div>`;
+    });
+
+    // Student profiles (split into 2 pages)
+    const profiles1 = document.getElementById("profiles1");
+    const profiles2 = document.getElementById("profiles2");
+
+    students.slice(0,3).forEach(s=>{
+      profiles1.innerHTML += `<div class="box">&#128100; <b>${s.name}</b> - ${s.course}</div>`;
+    });
+    students.slice(3).forEach(s=>{
+      profiles2.innerHTML += `<div class="box">&#128100; <b>${s.name}</b> - ${s.course}</div>`;
+    });
+
+    // Start with page 1
+    showPage(currentPage);
+  </script>
+
+</body>
+</html>
